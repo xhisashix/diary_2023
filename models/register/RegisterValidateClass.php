@@ -13,7 +13,7 @@ class RegisterValidateClass
    * @param string $name ユーザー名
    * @param string $password パスワード
    * @param string $password_confirmation パスワード（確認）
-   * @return void
+   * @return void session data
    */
   public function validate($email, $name, $password, $password_confirmation)
   {

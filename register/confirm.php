@@ -26,28 +26,31 @@ if ($validate['error_message'] != []) {
 <main class="container pt-4 pb-4">
   <h3 class="fs-3">確認画面</h3>
 
-  <form action="./register.php" method="post">
+  <form action="./complete.php" method="post">
+    <input type="hidden" name="email" value="<?php echo $email ?>">
+    <input type="hidden" name="name" value="<?php echo $name ?>">
+    <input type="hidden" name="password" value="<?php echo $password ?>">
     <div class="form-group row">
       <label for="name" class="col-sm-2 col-form-label">ユーザー名</label>
       <div class="col-sm-10">
-        <input type="text" name="name" id="name" class="form-control" disabled aria-describedby="helpId" value="<?php echo $name ?>">
+        <input type="text" id="name" disabled class="form-control" aria-describedby="helpId" value="<?php echo $name ?>">
       </div>
     </div>
     <div class="form-group row">
-      <label for="email" class="col-sm-2 col-form-label">メールアドレス</label>
+      <label  class="col-sm-2 col-form-label">メールアドレス</label>
       <div class="col-sm-10">
-        <input type="text" name="email" id="email" class="form-control" disabled aria-describedby="helpId" value="<?php echo $email ?>">
+        <input type="text"  id="email" disabled class="form-control" aria-describedby="helpId" value="<?php echo $email ?>">
       </div>
     </div>
     <div class="form-group row">
-      <label for="password" class="col-sm-2 col-form-label">パスワード</label>
+      <label  class="col-sm-2 col-form-label">パスワード</label>
       <div class="col-sm-10">
-        <input type="password" name="password" id="password" disabled class="form-control" value="<?php echo $password; ?>">
+        <input type="password"  id="password" disabled class="form-control" value="<?php echo $password; ?>">
       </div>
     </div>
     <div>
       <button type="submit" class="btn btn-primary">登録</button>
-      <button type="button" class="btn btn-secondary"  onclick="history.back()">戻る</button>
+      <!-- <button type="button" class="btn btn-secondary" onclick="history.back()">戻る</button> -->
     </div>
   </form>
 </main>
