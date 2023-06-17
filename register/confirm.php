@@ -1,4 +1,6 @@
 <?php
+require_once('../models/register/RegisterValidateClass.php');
+
 session_start();
 isset($_POST['email']) ? $email = $_POST['email'] : $email = null;
 isset($_POST['name']) ? $name = $_POST['name'] : $name = null;
@@ -6,79 +8,48 @@ isset($_POST['password']) ? $password = $_POST['password'] : $password = null;
 isset($_POST['password_confirmation']) ? $password_confirmation = $_POST['password_confirmation'] : $password_confirmation = null;
 
 
-$error_message = [];
+$registerValidateClass = new RegisterValidateClass($email, $name, $password, $password_confirmation);
 
-if ($email == null || $password == null || $password_confirmation == null) {
-  if ($email == null) {
-    $error_message['email'] = 'メールアドレスを入力してください。';
-  }
-  if ($password == null) {
-    $error_message['password'] = 'パスワードを入力してください。';
-  }
-  if ($password_confirmation == null) {
-    $error_message['password_confirmation'] = 'パスワード（確認）を入力してください。';
-  }
-}
+$validate = $registerValidateClass->validate($email, $name, $password, $password_confirmation);
 
-if ($password != $password_confirmation) {
-  $error_message['password_confirmation'] = 'パスワードが一致しません。';
-}
-
-// validate email
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-  $error_message['email'] = 'メールアドレスの形式が正しくありません。';
-}
-
-// validate password
-if (!preg_match("/\A[a-z\d]{8,100}+\z/i", $password)) {
-  $error_message['password'] = 'パスワードは英数字8文字以上100文字以下にしてください。';
-}
-
-if (isset($error_message)) {
-  // セッションのデータを前の画面に戻す
-  $_SESSION['email'] = $email;
-  $_SESSION['name'] = $name;
-  $_SESSION['password'] = $password;
-  $_SESSION['password_confirmation'] = $password_confirmation;
-  // エラーメッセージをセッションに保存
-  $_SESSION['error_message'] = $error_message;
-  // redirect to index.php
+if ($validate['error_message'] != []) {
   header('Location: ./index.php');
   exit();
+} else {
+  unset($_SESSION['error_message']);
 }
 
 ?>
 
-<!DOCTYPE html>
-<html lang="ja">
+<?php require_once('../global/header.php') ?>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title></title>
-</head>
-
-<body>
-  <h1>確認画面</h1>
+<main class="container pt-4 pb-4">
+  <h3 class="fs-3">確認画面</h3>
 
   <form action="./register.php" method="post">
-    <div>
-      <label for="email">メールアドレス</label>
-      <?php echo $email ?>
+    <div class="form-group row">
+      <label for="name" class="col-sm-2 col-form-label">ユーザー名</label>
+      <div class="col-sm-10">
+        <input type="text" name="name" id="name" class="form-control" disabled aria-describedby="helpId" value="<?php echo $name ?>">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="email" class="col-sm-2 col-form-label">メールアドレス</label>
+      <div class="col-sm-10">
+        <input type="text" name="email" id="email" class="form-control" disabled aria-describedby="helpId" value="<?php echo $email ?>">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="password" class="col-sm-2 col-form-label">パスワード</label>
+      <div class="col-sm-10">
+        <input type="password" name="password" id="password" disabled class="form-control" value="<?php echo $password; ?>">
+      </div>
     </div>
     <div>
-      <label for="password">パスワード</label>
-      <input type="password" name="password" id="password" value="<?php echo $password; ?>">
-    </div>
-    <div>
-      <label for="password_confirmation">パスワード（確認）</label>
-      <input type="password" name="password_confirmation" id="password_confirmation" value="<?php echo $password_confirmation; ?>">
-    </div>
-    <div>
-      <input type="submit" value="登録">
+      <button type="submit" class="btn btn-primary">登録</button>
+      <button type="button" class="btn btn-secondary"  onclick="history.back()">戻る</button>
     </div>
   </form>
-</body>
+</main>
 
-</html>
+<?php require_once('../global/footer.php') ?>

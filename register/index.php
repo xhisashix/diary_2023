@@ -38,15 +38,15 @@ if (isset($_SESSION['error_message'])) {
     <div class="form-group row">
       <label for="password" class="col-sm-2 col-form-label">Password</label>
       <div class="col-sm-10">
-        <input type="password" class="form-control" id="inputPassword" placeholder="Password" value="<?php
-                                                                                                      if (isset($_SESSION['password'])) echo $_SESSION['password'] ?>">
+        <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password" value="<?php
+                                                                                                                      if (isset($_SESSION['password'])) echo $_SESSION['password'] ?>">
       </div>
     </div>
     <div class="form-group row">
       <label for="password_confirmation" class="col-sm-2 col-form-label">確認用パスワード</label>
       <div class="col-sm-10">
-        <input type="password" class="form-control" id="password_confirmation" placeholder="もう一度パスワードを入力してください" value="<?php
-                                                                                                                        if (isset($_SESSION['password_confirmation'])) echo $_SESSION['password_confirmation'] ?>">
+        <input type="password" class="form-control" id="password_confirmation" placeholder="もう一度パスワードを入力してください" name="password_confirmation" value="<?php
+                                                                                                                                                    if (isset($_SESSION['password_confirmation'])) echo $_SESSION['password_confirmation'] ?>">
       </div>
     </div>
     <button type="submit" class="btn btn-primary">送信</button>
