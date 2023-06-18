@@ -4,6 +4,12 @@
 require_once('../models/login/LoginClass.php');
 session_start();
 
+//すでにログインしている場合は、マイページにリダイレクト
+if (isset($_SESSION['user_id'])) {
+  header('Location: ../my_page/index.php');
+  exit;
+}
+
 isset($_POST['email']) ? $email = $_POST['email'] : $email = null;
 isset($_POST['password']) ? $password = $_POST['password'] : $password = null;
 
