@@ -23,7 +23,7 @@ if (!isset($_SESSION)) {
             <a class="nav-link" href="/list">日報一覧</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/post">日報投稿</a>
+            <a class="nav-link" href="/posts/create.php">日報投稿</a>
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
