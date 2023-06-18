@@ -1,6 +1,11 @@
 <?php
 // head.phpを読み込み
 require_once('head.php');
+
+if (!isset($_SESSION)) {
+  session_start();
+}
+
 ?>
 <header>
   <nav class="navbar navbar-expand-lg navbar navbar-dark bg-primary">
@@ -22,9 +27,21 @@ require_once('head.php');
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a name="" id="" class="btn btn-dark" href="/register/" role="button">新規登録</a>
-          </li>
+          <?php if (!isset($_SESSION['user_id'])) { ?>
+            <li class="nav-item ml-2">
+              <a name="" id="" class="btn btn-dark" href="/register/" role="button">新規登録</a>
+            </li>
+            <li class="nav-item ml-2">
+              <a name="" id="" class="btn btn-outline-light" href="/login/" role="button">ログイン</a>
+            </li>
+          <?php } else { ?>
+            <li class="nav-item ml-2">
+              <a name="" id="" class="btn btn-outline-light" href="/my_page/" role="button">マイページ</a>
+            </li>
+            <li class="nav-item ml-2">
+              <a name="" id="" class="btn btn-secondary" href="/logout/" role="button">ログアウト</a>
+            </li>
+          <?php } ?>
         </ul>
       </div>
     </div>
