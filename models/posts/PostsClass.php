@@ -87,13 +87,17 @@ class PostsClass extends DBConnect
    */
   public function updatePost($title, $content, $id)
   {
-    $sql = "UPDATE posts SET title = :title, content = :content WHERE id = :id";
+    $sql = "UPDATE posts SET title = :title, content = :content, updated_at = :updated_at WHERE id = :id";
     $stmt = $this->pdo()->prepare($sql);
     $stmt->bindValue(':title', $title, PDO::PARAM_STR);
     $stmt->bindValue(':content', $content, PDO::PARAM_STR);
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->bindValue(':updated_at', date('Y-m-d H:i:s'), PDO::PARAM_STR);
     $stmt->execute();
-    header('Location: ./index.php');
+
+    // 更新成功のメッセージをセッションに格納
+    $_SESSION['success'] = '正常に更新されました。';
+    header('Location: ./edit.php?id=' . $id);
     exit;
   }
 
