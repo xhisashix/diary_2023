@@ -50,7 +50,7 @@ if ($validate['error_message'] != []) {
     </div>
     <div>
       <button type="submit" class="btn btn-primary">登録</button>
-      <!-- <button type="button" class="btn btn-secondary" onclick="history.back()">戻る</button> -->
+      <button type="button" class="btn btn-secondary" onclick="history.back()">戻る</button>
     </div>
   </form>
 </main>

@@ -3,4 +3,8 @@
 require_once('./global/header.php');
 ?>
 
-<h1>日報</h1>
+<main class="container pt-4 pb-4">
+  <h3>日報投稿システム</h3>
+</main>
+
+<?php require_once('./global/footer.php') ?>

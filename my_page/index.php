@@ -50,21 +50,34 @@ $posts = $postsClass->getPosts($user_id);
         <tr>
           <th scope="col">タイトル</th>
           <th scope="col">内容</th>
-          <th scope="col">投稿日時</th>
-          <th scope="col">編集</th>
-          <th scope="col">削除</th>
+          <th scope="col">作成日時</th>
+          <th scope="col">更新日時</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
         <?php foreach ($posts as $post) { ?>
-          <tr>
+          <tr id="post_<?php $post['id'] ?>">
             <td><?php echo $post['title']; ?></td>
             <td><?php echo $post['content']; ?></td>
             <td><?php echo $post['created_at']; ?></td>
-            <td><a href="../posts/edit.php?id=<?php echo $post['id']; ?>">編集</a></td>
-            <td><a href="../posts/delete.php?id=<?php echo $post['id']; ?>">削除</a></td>
+            <td><?php echo $post['updated_at']; ?></td>
+            <td>
+              <button class="btn btn-primary">
+                <a href="../posts/edit.php?id=<?php echo $post['id']; ?>" class="text-white">編集</a>
+            </td>
+            </button>
+            <td>
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
+              <a href="../posts/delete.php?id=<?php echo $post['id']; ?>" class="text-white">削除</a>
+              </button>
+
+            </td>
           </tr>
         <?php } ?>
       </tbody>
+    </table>
   </div>
 </main>

@@ -113,7 +113,7 @@ class PostsClass extends DBConnect
     $stmt = $this->pdo()->prepare($sql);
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
-    header('Location: ./index.php');
+    header('Location: /my_page/index.php');
     exit;
   }
 
