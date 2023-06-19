@@ -7,7 +7,7 @@ if (!isset($_SESSION)) {
 }
 
 ?>
-<header>
+<header class="sticky-top">
   <nav class="navbar navbar-expand-lg navbar navbar-dark bg-primary">
     <div class="container-fluid">
       <a class="navbar-brand" href="/">日報投稿システム</a>
@@ -20,7 +20,7 @@ if (!isset($_SESSION)) {
             <a class="nav-link cl-w" aria-current="page" href="/">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/list">日報一覧</a>
+            <a class="nav-link" href="/posts/list.php">日報一覧</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/posts/create.php">日報投稿</a>
@@ -39,7 +39,9 @@ if (!isset($_SESSION)) {
               <a name="" id="" class="btn btn-outline-light" href="/my_page/" role="button">マイページ</a>
             </li>
             <li class="nav-item ml-2">
-              <a name="" id="" class="btn btn-secondary" href="/logout/" role="button">ログアウト</a>
+              <form action="../login/logout.php" method="post">
+                <button type="submit" class="btn btn-secondary">ログアウト</button>
+              </form>
             </li>
           <?php } ?>
         </ul>

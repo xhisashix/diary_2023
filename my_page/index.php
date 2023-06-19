@@ -13,7 +13,7 @@ isset($_SESSION['user_name']) ? $user_name = $_SESSION['user_name'] : $user_name
 isset($_SESSION['user_email']) ? $email = $_SESSION['user_email'] : $email = null;
 
 $postsClass = new PostsClass(null, null, $user_id);
-$posts = $postsClass->getPosts($user_id);
+$posts = $postsClass->getUserPosts($user_id);
 
 ?>
 

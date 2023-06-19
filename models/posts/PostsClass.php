@@ -52,9 +52,10 @@ class PostsClass extends DBConnect
    * @param string $sql
    * @return array
    */
-  public function getPosts($sql)
+  public function getPosts()
   {
-    $sql = "SELECT * FROM posts";
+    // usersテーブルと結合
+    $sql = "SELECT * FROM posts INNER JOIN users ON posts.user_id = users.id";
     $stmt = $this->pdo()->prepare($sql);
     $stmt->execute();
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -69,7 +70,7 @@ class PostsClass extends DBConnect
    */
   public function getPost($id)
   {
-    $sql = "SELECT * FROM posts WHERE id = :id";
+    $sql = "SELECT * FROM posts INNER JOIN users ON posts.user_id = users.id WHERE posts.id = :id";
     $stmt = $this->pdo()->prepare($sql);
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
@@ -128,6 +129,23 @@ class PostsClass extends DBConnect
     $sql = "SELECT * FROM posts WHERE user_id = :user_id";
     $stmt = $this->pdo()->prepare($sql);
     $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+  }
+
+
+  /**
+   * 日報検索処理
+   * @param string $sql
+   * @param string $search_word
+   * @return array
+   */
+  public function searchPosts($search_word)
+  {
+    $sql = "SELECT * FROM posts INNER JOIN users ON posts.user_id = users.id WHERE title LIKE :search_word OR content LIKE :search_word";
+    $stmt = $this->pdo()->prepare($sql);
+    $stmt->bindValue(':search_word', '%' . $search_word . '%', PDO::PARAM_STR);
     $stmt->execute();
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
