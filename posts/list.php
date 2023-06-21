@@ -7,6 +7,22 @@ $postsClass = new PostsClass(null, null, null);
 // 投稿一覧を取得
 $posts = $postsClass->getPosts();
 
+// 5件ずつページネーションする
+$posts = array_chunk($posts, 5);
+
+// ページネーションのページ数を取得
+$page_count = count($posts);
+
+// ページネーションの現在のページ数を取得
+if (!isset($_GET['page'])) {
+  $page = 1;
+} else {
+  $page = $_GET['page'];
+}
+
+// 現在のページ数の投稿一覧を取得
+$posts = $posts[$page - 1];
+
 ?>
 
 <?php require_once('../global/header.php') ?>
@@ -40,6 +56,30 @@ $posts = $postsClass->getPosts();
         </li>
       <?php } ?>
     </ul>
+    <!-- ページネーション -->
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <!-- 先頭へ戻る -->
+        <!-- 最初のページのときは非表示 -->
+        <?php if ($page != 1) { ?>
+          <li class="page-item"><a class="page-link" href="/posts/list.php?page=1">First</a></li>
+        <?php } ?>
+        <?php for ($i = 1; $i <= $page_count; $i++) { ?>
+          <!-- 現在のページはリンクなし -->
+          <?php if ($i == $page) { ?>
+            <li class="page-item active"><a class="page-link" href="#"><?php echo $i ?></a></li>
+            <?php continue; ?>
+          <?php } else { ?>
+            <li class="page-item"><a class="page-link" href="/posts/list.php?page=<?php echo $i ?>"><?php echo $i ?></a></li>
+          <?php } ?>
+        <?php } ?>
+        <!-- 最後へ進む -->
+        <!-- 最後のページのときは非表示 -->
+        <?php if ($page != $page_count) { ?>
+          <li class="page-item"><a class="page-link" href="/posts/list.php?page=<?php echo $page_count ?>">Last</a></li>
+        <?php } ?>
+      </ul>
+    </nav>
   </main>
 </div>
 
