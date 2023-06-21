@@ -4,8 +4,13 @@ require_once('../models/posts/PostsClass.php');
 
 $postsClass = new PostsClass(null, null, null);
 
-// 投稿一覧を取得
-$posts = $postsClass->getPosts();
+//検索機能
+if (isset($_GET['search_word'])) {
+  $search_word = $_GET['search_word'];
+  $posts = $postsClass->searchPosts($search_word);
+} else {
+  $posts = $postsClass->getPosts();
+}
 
 // 5件ずつページネーションする
 $posts = array_chunk($posts, 5);
@@ -35,6 +40,15 @@ $posts = $posts[$page - 1];
 
   <main class="pt-4 pb-4 w-75">
     <h3 class="fs-3">投稿一覧</h3>
+    <!-- 検索フォーム -->
+    <div>
+      <form action="./list.php" method="GET">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="検索したいワードを入力してください" name="search_word">
+          <button class="btn btn-primary ml-2" type="submit" id="button-addon2">検索</button>
+        </div>
+      </form>
+    </div>
     <ul class="list-unstyled">
       <?php foreach ($posts as $post) { ?>
         <li class="mt-3">
