@@ -25,6 +25,9 @@ if (!isset($_SESSION)) {
           <li class="nav-item">
             <a class="nav-link" href="/posts/create.php">日報投稿</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/users/list.php">ユーザー一覧</a>
+          </li>
         </ul>
         <ul class="navbar-nav ml-auto">
           <?php if (!isset($_SESSION['user_id'])) { ?>

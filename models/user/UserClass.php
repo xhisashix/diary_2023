@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require_once('../models/dbconnect.php');
 
@@ -16,6 +16,17 @@ class UserClass extends DBConnect {
     return $result;
   }
 
-}
+  /**
+   * ユーザー一覧を取得
+   * @param string $sql
+   * @return array
+   */
+  public function getUsers(){
+    $sql = "SELECT * FROM users";
+    $stmt = $this->pdo()->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+  }
 
-?>
+}

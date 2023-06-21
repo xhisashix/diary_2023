@@ -4,6 +4,7 @@ require_once('../models/posts/PostsClass.php');
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
+  $_SESSION['error_message'] = '投稿機能を利用するにはログインが必要です。';
   header('Location: ../login/index.php');
   exit;
 }

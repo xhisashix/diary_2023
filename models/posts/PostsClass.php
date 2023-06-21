@@ -150,4 +150,20 @@ class PostsClass extends DBConnect
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
   }
+
+  /**
+   * 特定のユーザーの日報を取得
+   * @param string $sql
+   * @param string $user_id
+   * @return array
+   */
+  public function getUserPostsByUserId($user_id)
+  {
+    $sql = "SELECT * FROM posts WHERE user_id = :user_id";
+    $stmt = $this->pdo()->prepare($sql);
+    $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+  }
 }
